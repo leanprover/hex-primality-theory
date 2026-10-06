@@ -7,7 +7,7 @@ search, and initial-segment results, extends the bare `primality` tactic to
 `Nat.Prime` goals, and provides an explicit opt-in `Nat.Prime` `norm_num`
 policy.
 
-This is not a correspondence-only layer. Its elaborators choose registrations,
+Its elaborators choose registrations,
 dispatch between proof-producing routes, run bounded untrusted search, and
 reify terms for kernel checking. This SPEC therefore owns their success,
 decline, failure, resource, conformance, and proof-performance contracts.
@@ -147,6 +147,17 @@ recursive-fuel, rho-restart, and rho-step limits therefore have one executable
 and normative owner; their current values and evidence are specified in
 [the core tactic contract](../../HexPrimality/SPEC/hex-primality.md#the-tactic).
 The bridge must not copy those constants or silently widen them.
+
+### Reusable certificate suggestions
+
+The companion registers both `primality?` and `primality? using expression` for
+`Nat.Prime`, delegating to the core's shared `suggestPrime` handler. It emits
+`Hex.Nat.natPrime_of_checkPrimeAt` and the same literal data and kernel check
+as the core route. Construction policy, explicit producer evaluation, rejection,
+and source-language compatibility belong to the
+[core certificate-language contract](../../HexPrimality/SPEC/hex-primality.md#certificate-language-and-extension-policy).
+The companion adds no producer registry or checker semantics. Exact suggestion
+coverage lives in `HexPrimalityMathlibConformance.OptIn`.
 
 ### Default and opt-in `norm_num`
 
@@ -322,8 +333,7 @@ semantic rather than a claimed speed distinction. Keeping all inputs through
 while the bounded certificate route is required above it to avoid Mathlib's
 unbounded trial behavior and 31-bit kernel-depth failure.
 
-There is `no-comparable-surface-in-named-comparator` for the bridge proof
-track. No external tool emits and kernel-checks the same `Nat.Prime` proof term
+The Mathlib proof track has no external comparator. No external tool emits and kernel-checks the same `Nat.Prime` proof term
 through this registration, transport theorem, and pinned Lean kernel. The
 transported certificate search remains performance-owned by `HexPrimality`;
 it is not a second comparator for the bridge wrapper.
@@ -358,8 +368,7 @@ taskset -c "$cpu" python3 scripts/bench/primality_negative_sweep.py --samples 6 
 
 `lake build HexPrimalityElabProbe` is the untimed build-only reproduction.
 
-These probes are proof-performance evidence, not a claim that the layer is
-correspondence-only and exempt from review. Any change to registration,
+These probes are proof-performance evidence. Any change to registration,
 dispatch, thresholds, search budgets, reification, emitted proof shape, or
 imports must refresh the affected conformance and fresh-module evidence.
 
@@ -390,3 +399,14 @@ HexPrimalityMathlibConformance/
   OptIn.lean
 bench/HexPrimalityMathlib/ProofProbe/
 ```
+
+## Optional ECPP suggestion fallback
+
+The shared core `primality?` goal handler may call the optional versioned
+proof-producing fallback after construction exhausts. For `Nat.Prime` it
+requests that exact predicate; it must not retry a failed companion route
+as a separate core route or duplicate the portfolio. The same kernel-checked
+proof and complete frozen suggestion are required as for the core goal.
+No automatic ECPP code is imported by this library. The allocation and
+optional import are owned by
+[hex-ecpp-mathlib](../../HexECPPMathlib/SPEC/hex-ecpp-mathlib.md#automatic-native-fallback).
