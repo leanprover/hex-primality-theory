@@ -1,4 +1,4 @@
-# hex-primality-mathlib
+# hex-primality-theory
 
 Part of [`hex`](https://github.com/kim-em/hex-dev), a computer algebra
 library for Lean 4. The aim is fast executable code, fully verified, built
@@ -14,13 +14,13 @@ explicitly opted-in bounded `norm_num` policy.
 
 ```toml
 [[require]]
-name = "hex-primality-mathlib"
-git = "https://github.com/leanprover/hex-primality-mathlib.git"
+name = "hex-primality-theory"
+git = "https://github.com/leanprover/hex-primality-theory.git"
 rev = "main"
 ```
 
 ```lean
-import HexPrimalityMathlib
+import HexPrimalityTheory
 
 example : Hex.Nat.Prime 65537 ↔ Nat.Prime 65537 :=
   Hex.Nat.prime_iff
@@ -63,7 +63,7 @@ theorem natPrime_of_checkPrimeAt {n : Nat} {c : PrimeCert}
 
 Use [`hex-primality`](https://github.com/leanprover/hex-primality) alone for
 Mathlib-free computation. See the
-[SPEC](SPEC/hex-primality-mathlib.md) for tactic registration, thresholds,
+[SPEC](SPEC/hex-primality-theory.md) for tactic registration, thresholds,
 failure semantics, and resource bounds.
 
 # Contributing

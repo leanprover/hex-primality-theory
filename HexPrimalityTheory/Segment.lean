@@ -6,7 +6,7 @@ Authors: Kim Morrison
 
 module
 
-public import HexPrimalityMathlib.Prime
+public import HexPrimalityTheory.Prime
 public import Mathlib.Data.Finset.Basic
 
 public section

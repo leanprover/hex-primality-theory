@@ -6,14 +6,14 @@ Authors: Kim Morrison
 
 module
 
-public import HexPrimalityMathlib.NormNum
-public import HexPrimalityMathlib.Prime
-public import HexPrimalityMathlib.Segment
+public import HexPrimalityTheory.NormNum
+public import HexPrimalityTheory.Prime
+public import HexPrimalityTheory.Segment
 
 public section
 
 /-!
-The `HexPrimalityMathlib` library relates the Mathlib-free primality
+The `HexPrimalityTheory` library relates the Mathlib-free primality
 surface of `HexPrimality` to Mathlib's `Nat.Prime`: the `prime_iff`
 correspondence, `Nat.Prime`-flavoured transports of the checker, decision,
 and search theorems, and the segment statements over the committed table

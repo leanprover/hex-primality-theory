@@ -6,9 +6,9 @@ Authors: Kim Morrison
 
 module
 
-public import HexPrimalityMathlib.Prime
-public import HexPrimalityMathlib.Policy
-public meta import HexPrimalityMathlib.Policy
+public import HexPrimalityTheory.Prime
+public import HexPrimalityTheory.Policy
+public meta import HexPrimalityTheory.Policy
 public meta import HexPrimality.Elab
 public meta import Mathlib.Tactic.NormNum.Prime
 

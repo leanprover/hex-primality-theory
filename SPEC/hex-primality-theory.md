@@ -1,6 +1,6 @@
-# hex-primality-mathlib (depends on hex-primality + Mathlib)
+# hex-primality-theory (depends on hex-primality + Mathlib)
 
-The Mathlib bridge for
+The theory companion for
 [hex-primality](../../HexPrimality/SPEC/hex-primality.md). It identifies
 `Hex.Nat.Prime` with Mathlib's `Nat.Prime`, transports the total core decision,
 search, and initial-segment results, extends the bare `primality` tactic to
@@ -157,7 +157,7 @@ as the core route. Construction policy, explicit producer evaluation, rejection,
 and source-language compatibility belong to the
 [core certificate-language contract](../../HexPrimality/SPEC/hex-primality.md#certificate-language-and-extension-policy).
 The companion adds no producer registry or checker semantics. Exact suggestion
-coverage lives in `HexPrimalityMathlibConformance.OptIn`.
+coverage lives in `HexPrimalityTheoryConformance.OptIn`.
 
 ### Default and opt-in `norm_num`
 
@@ -271,8 +271,8 @@ performance evidence rather than changing elaborator semantics.
 
 ## Conformance and proof-performance ownership
 
-The bridge owns `conformance/HexPrimalityMathlib/Conformance.lean` and
-`conformance/HexPrimalityMathlibConformance/OptIn.lean`. Together they cover
+The bridge owns `conformance/HexPrimalityTheory/Conformance.lean` and
+`conformance/HexPrimalityTheoryConformance/OptIn.lean`. Together they cover
 correspondence-facing tactic use, default registration, module-local opt-in precedence, both sides of the
 `2^24` threshold, positive and negative certificate-tier results,
 deterministic seed/state replay, parity without a restart, exact negative
@@ -295,7 +295,7 @@ a bridge operation. The hypotheses cap this table-facing API at
 be a new proof-track operation and would require matched fresh-module evidence.
 
 Fresh importing modules under
-`bench/HexPrimalityMathlib/ProofProbe/` own proof-production evidence. The
+`bench/HexPrimalityTheory/ProofProbe/` own proof-production evidence. The
 `Mathlib512`, `MathlibExhausted`, and `MathlibOverBudget` probes cover the
 shared positive policy; `MathlibBaseline` is their import control. The
 `Negative*` probes cover factor-found inputs at 25, 32, 64, 65, and 512 bits,
@@ -374,7 +374,7 @@ imports must refresh the affected conformance and fresh-module evidence.
 
 ## Review and attestation
 
-Phase-2 review treats `HexPrimality` and `HexPrimalityMathlib` as distinct
+Phase-2 review treats `HexPrimality` and `HexPrimalityTheory` as distinct
 libraries with distinct owned specifications. The core attestation is reviewed
 against `HexPrimality/SPEC/hex-primality.md`; the bridge attestation is reviewed
 against this file. A pair-level review or report must identify both SPEC owners
@@ -384,20 +384,20 @@ failure, resource, or evidence semantics.
 ## File organization
 
 ```text
-HexPrimalityMathlib/
+HexPrimalityTheory/
   Prime.lean       -- prime_iff and core-result transports
   Segment.lean     -- table and range statements in Mathlib vocabulary
   Policy.lean      -- opt-in norm_num thresholds and factor-search bounds
   NormNum.lean     -- Nat.Prime tactic handler and opt-in norm_num policy
   SPEC/
-    hex-primality-mathlib.md
-HexPrimalityMathlib.lean
+    hex-primality-theory.md
+HexPrimalityTheory.lean
 
-conformance/HexPrimalityMathlib/
+conformance/HexPrimalityTheory/
   Conformance.lean
-HexPrimalityMathlibConformance/
+HexPrimalityTheoryConformance/
   OptIn.lean
-bench/HexPrimalityMathlib/ProofProbe/
+bench/HexPrimalityTheory/ProofProbe/
 ```
 
 ## Optional ECPP suggestion fallback
@@ -409,4 +409,4 @@ as a separate core route or duplicate the portfolio. The same kernel-checked
 proof and complete frozen suggestion are required as for the core goal.
 No automatic ECPP code is imported by this library. The allocation and
 optional import are owned by
-[hex-ecpp-mathlib](../../HexECPPMathlib/SPEC/hex-ecpp-mathlib.md#automatic-native-fallback).
+[hex-ecpp-theory](../../HexECPPTheory/SPEC/hex-ecpp-theory.md#automatic-native-fallback).
